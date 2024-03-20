@@ -1,0 +1,21 @@
+---
+- name: Deploy Apache Docker container
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Pull Apache Docker image
+      docker_image:
+        name: httpd
+        source: pull
+
+    - name: Run Apache Docker container
+      docker_container:
+        name: apache_container
+        image: httpd
+        state: started
+        ports:
+          - "80:80"
+        volumes:
+          - /ansible-playbook /home/kali/Playbook/apache.yml
+
